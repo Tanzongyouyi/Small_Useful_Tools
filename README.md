@@ -9,7 +9,7 @@ gcc cualator.c -o cualator
 ```
 
 # Dexpacker
-dexpacker是一个apk加固工具，因为有未解决问题，故不提供源代码
+dexpacker是一个apk加固工具，因为有未解决问题，故只提供不完美的二进制文件
 ```bash
 ./start.sh input.apk output.apk
 ```
