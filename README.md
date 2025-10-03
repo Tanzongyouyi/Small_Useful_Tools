@@ -7,3 +7,9 @@ cualator是一个计算变速运动位移的工具，使用微元法计算。当
 ```bash
 gcc cualator.c -o cualator
 ```
+
+# Dexpacker
+dexpacker是一个apk加固工具，因为有未结决问题，故不提供源代码
+```bash
+./start.sh input.apk output.apk
+```
