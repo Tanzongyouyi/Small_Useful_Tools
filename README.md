@@ -18,6 +18,8 @@ To Do
 # Pomodoro
 pomodoro是一个命令行番茄钟，专注25分钟，休息5分钟，每4个番茄钟休息20分钟
 ```bash
-gcc pomodoro.c -g -o pomodoro
+gcc pomodoro.c -g -o pomodoro -fexec-charset=GBK
 ./pomodoro
+windres resources.rc -o resources.o
+gcc -mwindows -o pomodoro.exe pomodoro.c resources.o -lcomctl32 -fexec-charset=GBK
 ```
