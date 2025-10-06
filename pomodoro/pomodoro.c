@@ -5,7 +5,8 @@
 #include <string.h>
 
 // 全局变量
-volatile sig_atomic_t pomodoro_count = 0; // 从0开始，表示已完成的番茄钟数
+volatile sig_atomic_t pomodoro_count = 1; // 当前番茄钟序号
+volatile sig_atomic_t completed_pomodoros = 0; // 已完成的番茄钟数
 volatile sig_atomic_t current_session = 0; // 0:专注, 1:短休息, 2:长休息
 
 // ANSI 转义码定义
@@ -48,8 +49,11 @@ void handle_signal(int sig) {
         printf("\n");
         // 如果当前正在专注阶段，当前番茄钟不算完成
         // 如果正在休息阶段，当前番茄钟算完成
-        int completed_pomodoros = (current_session == 0) ? pomodoro_count : pomodoro_count + 1;
-        printf("坚持了%d个番茄钟，很厉害呢！\n", completed_pomodoros);
+        int total_completed = completed_pomodoros;
+        if (current_session != 0) {
+            total_completed++;
+        }
+        printf("坚持了%d个番茄钟，很厉害呢！\n", total_completed);
         exit(0);
     }
 }
@@ -60,14 +64,17 @@ int main() {
     printf("番茄钟已启动！按 Ctrl+C 可随时退出。\n");
 
     while (1) {
-        pomodoro_count++; // 开始新的番茄钟
         printf("\n--- 第%d个番茄钟 ---\n", pomodoro_count);
         
-        current_session = 0; // 进入专注阶段
+        // 专注阶段
+        current_session = 0;
         show_progress_bar(25 * 60, "专注工作 (25分钟)");
         
+        // 专注完成，增加已完成番茄钟计数
+        completed_pomodoros++;
+        
         // 检查是否需要长休息 (每完成4个番茄钟后长休息)
-        if (pomodoro_count % 4 == 0) {
+        if (completed_pomodoros % 4 == 0) {
             printf("恭喜完成一组！奖励自己长休息 (20分钟)...\n");
             current_session = 2; // 进入长休息阶段
             show_progress_bar(20 * 60, "长休息 (20分钟)");
@@ -76,7 +83,8 @@ int main() {
             show_progress_bar(5 * 60, "是时候休息了 (5分钟)");
         }
         
-        // 番茄钟完成，current_session重置为0，准备下一个循环
+        // 准备下一个番茄钟
+        pomodoro_count++;
         current_session = 0;
     }
 
