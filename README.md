@@ -29,4 +29,5 @@ gcc -mwindows -o pomodoro_gui.exe pomodoro_gui.c resources.o -lcomctl32 -fexec-c
 datacutor是一个数据集切割工具，可配合SSLM-MiniAI中的scissors.py构建高质量的数据集
 ```bash
 gcc datacutor.c -o datacutor -fexec-charset=GBK
+./datacutor
 ```
