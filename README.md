@@ -31,3 +31,10 @@ datacutor是一个数据集切割工具，可配合SSLM-MiniAI中的scissors.py�
 gcc datacutor.c -o datacutor -fexec-charset=GBK
 ./datacutor
 ```
+
+# Fuck
+麻省理工学院心理学教授蒂莫西·杰伊（Timothy Jay）研究发现骂人可以有效缓解压力🤬
+```bash
+gcc fuck.c -o fuck
+./fuck
+```
